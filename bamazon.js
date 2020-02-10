@@ -46,9 +46,18 @@ var promptCustomer = function(res){
                             return false;
                         }
                     }
-                }).then
-
+                }).then(function(answer){
+                    if((res[id].stockquantity-answer.quant)>0){
+                        connection.query("UPDATE products SET stockquantity='"+(res[id].stockquantity-answer.quant)+"' WHERE productname='"+product+"'", function(err,res2){ console.log("Product Bought!");
+                    makeTable();
+                })
+            }else {
+                console.log("Not a valid selection!");
+                promptCustomer(res);
             }
-        }
-    })
+         })
+
+     }
+ }
+})
 }
